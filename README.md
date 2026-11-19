@@ -4,14 +4,14 @@
 
 ### Prerequisites
 
-- [Bun](https://bun.sh/) - Fast all-in-one JavaScript runtime
+- [Bun 1.3.11](https://bun.sh/)
 
 ### Installation
 
 Install dependencies:
 
 ```sh
-bun install
+bun install --frozen-lockfile
 ```
 
 ### Development
@@ -33,6 +33,10 @@ bun run build
 ```
 
 Outputs to `dist/`.
+
+`VITE_ALCHEMY_API_KEY` configures the primary Sepolia RPC and wallet-name
+listing. If the primary RPC is unavailable, chain requests fall back to the
+PublicNode Sepolia RPC. Wallet-name listing still needs an active Alchemy app.
 
 ### Preview
 
