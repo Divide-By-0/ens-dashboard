@@ -4,14 +4,14 @@
 
 ### Prerequisites
 
-- [Bun](https://bun.sh/) - Fast all-in-one JavaScript runtime
+- [Bun 1.3.11](https://bun.sh/)
 
 ### Installation
 
 Install dependencies:
 
 ```sh
-bun install
+bun install --frozen-lockfile
 ```
 
 ### Development
