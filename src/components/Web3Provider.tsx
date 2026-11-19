@@ -1,19 +1,25 @@
-import { WagmiProvider, createConfig, http } from "wagmi";
+import { WagmiProvider, createConfig, fallback, http } from "wagmi";
 import { sepolia } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
+
+const alchemyKey = import.meta.env.VITE_ALCHEMY_API_KEY;
+const publicSepoliaRpc = http("https://ethereum-sepolia-rpc.publicnode.com");
+const sepoliaTransport = alchemyKey
+  ? fallback([
+      http(`https://eth-sepolia.g.alchemy.com/v2/${alchemyKey}`, {
+        timeout: 3_000,
+      }),
+      publicSepoliaRpc,
+    ])
+  : publicSepoliaRpc;
 
 const config = createConfig(
   getDefaultConfig({
     // Your dApps chains
     chains: [sepolia],
     transports: {
-      // RPC URL for each chain
-      [sepolia.id]: http(
-        `https://eth-sepolia.g.alchemy.com/v2/${
-          import.meta.env.VITE_ALCHEMY_API_KEY
-        }`
-      ),
+      [sepolia.id]: sepoliaTransport,
     },
 
     // Required API Keys
